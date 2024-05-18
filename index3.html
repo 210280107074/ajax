@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    svg {
+        position: absolute;
+        top: 20px;
+        left: 50px;
+    }
+   
+    h2 {
+        order : -1;
+    }
+</style>
+<body>
+    <div class="container">
+        <p></p>
+    </div>
+    <svg width="600px" height="600px">
+        <!-- <circle r="20" cx= "30px" cy="30px"fill="green"></circle> -->
+    </svg>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    let fruits = ['apple', 'orange', 'grapes'];
+    d3.select(".container")
+        .selectAll("p").data(fruits)
+        .join("p")
+        .attr("class", "container")
+        .text((d) => d);
+
+    var data = [{ name: "abc", covers: 19 },
+    { name: "vcc", covers: 40 },
+    { name: "abxc", covers: 20 },
+    { name: "absdc", covers: 35 },
+    ]
+
+    var svg = d3.select("svg");
+    svg.selectAll("text")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("x", 100) // Adjust the x-position as needed
+        .attr("y", (d, i) => 30 * (i + 1)) // Adjust the y-position as needed
+        .text((d) => d.name + " - " + d.covers);
+
+    var data = [20, 50, 60];
+    var circleSpacing = 60; 
+    svg.append("circle").attr("cx",300)
+                    .attr("cy",90)
+                    .attr("r",40)
+                    .style("fill","green");
+    svg.selectAll("circle")
+        .data(data)
+        .style("fill","blue")
+        .enter()
+        .append("circle")
+        .attr("cx", (d, i) => 300 + i * circleSpacing) // Adjust the spacing
+        .attr("cy", 90)
+        .attr("r", (d) => d)
+        .style("fill", "red");
+        
+        var data2 = [20, 30, 40, 50, 60];
+    d3.select("body") 
+        .append("div")
+        .attr("class","newdiv")
+        .selectAll("div") // Changed to selectAll(".new-div")
+        .data(data2)
+        .enter()
+        .append("div")
+        .attr("class","subdiv")
+        .text((d) => d);
+
+        d3.select(".newdiv").insert("h2", ":first-child").text("Text in new - div");
+</script>
+</html>

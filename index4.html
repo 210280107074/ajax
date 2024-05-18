@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <!-- Added a div to hold the chart -->
+    <button onclick="btn1()">2023</button>
+    <button onclick="btn2()">2024</button>
+    <div id="chart"></div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+let myArea = d3.select("#chart") // Corrected selection to select the div with id "chart"
+                .append("svg")
+                .attr("width",1500)
+                .attr("height",1000)
+
+let data1 = [10,20,30,50,5,80]
+let data2 = [70,40,50,90,100];
+
+var btn1 = function(){
+    myArea.selectAll('text').remove();
+    myArea.selectAll('rect').remove();
+
+    var bar = myArea.selectAll('rect').data(data1);
+    var bartext = myArea.selectAll('text').data(data1);
+
+    bar.enter()
+        .append('rect')
+        .attr("x",50)
+        .attr("y",(d,i)=>(i+1)*50)
+        .style("fill","orange")
+        .transition()
+        .duration(2000)
+        .attr("height",30)
+        .attr("width",(d)=>d*10)
+        
+
+    bartext.enter()
+            .append("text")
+            .transition()
+            .duration(2000)
+            .attr("x",(d)=>50+d*10-20)
+            .attr("y",(d,i)=>(i+1)*50+20)
+            .text((d)=>d)
+            .attr("class","texted");
+};
+var btn2 = function(){
+    myArea.selectAll('text').remove();
+    myArea.selectAll('rect').remove();
+
+    var bar = myArea.selectAll('rect').data(data2);
+    var bartext = myArea.selectAll('text').data(data2);
+
+    bar.enter()
+        .append('rect')
+        .attr("x",50)
+        .attr("y",(d,i)=>(i+1)*50)
+        .attr("height",30)
+        .style("fill","orange")
+        .transition()
+        .duration(2000)
+        .attr("width",(d)=>d*10)
+
+    bartext.enter()
+            .append("text")
+            .transition()
+            .duration(5000)
+            .attr("x",(d)=>50+d*10-20)
+            .attr("y",(d,i)=>(i+1)*50+20)
+            .text((d)=>d)
+        
+            
+}
+</script>
+</html>
